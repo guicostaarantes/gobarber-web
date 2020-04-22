@@ -25,4 +25,17 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+
+/* Hack to disable Chrome's autofill styling */
+  @keyframes autofill {
+    0%,100% {
+      color: #666;
+      background: transparent;
+    }
+  }
+  input:-webkit-autofill {
+    animation-delay: 1s;
+    animation-name: autofill;
+    animation-fill-mode: both;
+  }
 `;
