@@ -10,7 +10,7 @@ export default createGlobalStyle`
 
   body {
     background: #312E38;
-    color: white;
+    color: #f4ede8;
   }
 
   body, input, button {
@@ -29,7 +29,7 @@ export default createGlobalStyle`
 /* Hack to disable Chrome's autofill styling */
   @keyframes autofill {
     0%,100% {
-      color: #666;
+      color: #f4ede8;
       background: transparent;
     }
   }
