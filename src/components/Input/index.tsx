@@ -9,6 +9,9 @@ import React, {
 import { useField } from '@unform/core';
 
 import { IconBaseProps } from 'react-icons';
+import { FiAlertCircle } from 'react-icons/fi';
+
+import Tooltip from '../Tooltip';
 
 import { Container } from './styles';
 
@@ -19,9 +22,10 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input: React.FC<InputProps> = ({ icon: Icon, name, ...otherProps }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { fieldName, defaultValue, registerField } = useField(name);
+  const { fieldName, defaultValue, registerField, error } = useField(name);
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
+  const [isErrored, setIsErrored] = useState(false);
 
   useEffect(() => {
     registerField({
@@ -31,17 +35,22 @@ const Input: React.FC<InputProps> = ({ icon: Icon, name, ...otherProps }) => {
     });
   }, [fieldName, registerField]);
 
+  useEffect(() => {
+    setIsErrored(!!error);
+  }, [error]);
+
   const handleFocus = useCallback(() => {
     setIsFocused(true);
   }, []);
 
   const handleBlur = useCallback(() => {
     setIsFocused(false);
+    setIsErrored(false);
     setIsFilled(!!inputRef.current?.value);
   }, []);
 
   return (
-    <Container isFocused={isFocused} isFilled={isFilled}>
+    <Container isFocused={isFocused} isFilled={isFilled} isErrored={isErrored}>
       {Icon && <Icon size={20} />}
       <input
         ref={inputRef}
@@ -51,6 +60,9 @@ const Input: React.FC<InputProps> = ({ icon: Icon, name, ...otherProps }) => {
         onBlur={handleBlur}
         {...otherProps}
       />
+      {error && isErrored && (
+        <Tooltip icon={FiAlertCircle} text={error} color="#c53030" />
+      )}
     </Container>
   );
 };
