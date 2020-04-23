@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 
 import { useUser } from '../../context/UserContext';
+import { useToast } from '../../context/ToastContext';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -26,6 +27,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { signIn } = useUser();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -38,13 +40,22 @@ const SignIn: React.FC = () => {
           password: Yup.string().required('Senha obrigatória'),
         });
         await schema.validate(data, { abortEarly: false });
-        signIn({
+        await signIn({
           email: data.email,
           password: data.password,
         });
       } catch (err) {
-        const errors = getValidationErrors(err);
-        formRef.current?.setErrors(errors); // eslint-disable-line no-unused-expressions
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors); // eslint-disable-line no-unused-expressions
+        }
+        if (err.response?.status === 403) {
+          addToast({
+            type: 'error',
+            title: 'Erro',
+            description: 'Credenciais incorretas.',
+          });
+        }
       }
     },
     [signIn],
