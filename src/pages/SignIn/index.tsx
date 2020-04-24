@@ -1,5 +1,7 @@
 import React, { useCallback, useRef } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 
@@ -77,10 +79,10 @@ const SignIn: React.FC = () => {
           <Button type="submit">Entrar</Button>
           <a href="forgot">Esqueci minha senha</a>
         </Form>
-        <a href="newAccount">
+        <Link to="signup">
           <FiLogIn />
           <span>Criar conta</span>
-        </a>
+        </Link>
       </Content>
       <Background />
     </Container>

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+
 import GlobalStyle from './styles/global';
 
 import { UserProvider } from './context/UserContext';
@@ -12,8 +14,12 @@ const App: React.FC = () => (
   <>
     <ToastProvider>
       <UserProvider>
-        <SignIn />
-        <SignUp />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={SignIn} />
+            <Route exact path="/signup" component={SignUp} />
+          </Switch>
+        </BrowserRouter>
       </UserProvider>
     </ToastProvider>
     <GlobalStyle />
