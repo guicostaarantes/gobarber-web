@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTransition } from 'react-spring';
 
 import {
   FiAlertCircle,
@@ -19,16 +20,23 @@ const icons = {
 
 const ToastContainer: React.FC<{ toasts: ToastMsg[] }> = ({ toasts }) => {
   const { removeToast } = useToast();
+
+  const animatedToasts = useTransition(toasts, (toast) => toast.id, {
+    from: { right: '-120%' },
+    enter: { right: '0%' },
+    leave: { right: '-120%' },
+  });
+
   return (
     <Container>
-      {toasts.map((toast: ToastMsg) => (
-        <Toast key={toast.id} type={toast.type}>
-          {icons[toast.type || 'default']}
+      {animatedToasts.map(({ item, key, props }) => (
+        <Toast key={key} style={props} type={item.type}>
+          {icons[item.type || 'default']}
           <div>
-            <strong>{toast.title}</strong>
-            {toast.description && <p>{toast.description}</p>}
+            <strong>{item.title}</strong>
+            {item.description && <p>{item.description}</p>}
           </div>
-          <button type="button" onClick={() => removeToast(toast.id)}>
+          <button type="button" onClick={() => removeToast(item.id)}>
             <FiXCircle />
           </button>
         </Toast>
