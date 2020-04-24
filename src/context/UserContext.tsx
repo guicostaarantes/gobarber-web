@@ -6,10 +6,17 @@ interface SignInCredentials {
   password: string;
 }
 
+interface UserData {
+  fullName: string;
+  email: string;
+  avatar?: string;
+}
+
 interface UserContextData {
   token: string;
-  user: object;
+  user: UserData | null;
   signIn(credentials: SignInCredentials): Promise<void>;
+  getUser(token: string): Promise<void>;
   signOut(): void;
 }
 
@@ -21,35 +28,35 @@ export const UserProvider: React.FC = ({ children }) => {
     return lsToken || '';
   });
 
-  const [user, setUser] = useState<object>(() => {
+  const [user, setUser] = useState<UserData | null>(() => {
     const lsUser = localStorage.getItem('user');
     if (lsUser) {
       return JSON.parse(lsUser);
     }
-    return {};
+    return null;
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response1 = await api.post('sessions', { email, password });
-    localStorage.setItem('token', response1.data.token);
-    setToken(response1.data.token);
+    const response = await api.post('sessions', { email, password });
+    localStorage.setItem('token', response.data.token);
+    setToken(response.data.token);
+  }, []);
 
-    const response2 = await api.get('users/me', {
-      headers: { Authorization: `Bearer ${response1.data.token}` },
+  const getUser = useCallback(async (token_) => {
+    const response = await api.get('users/me', {
+      headers: { Authorization: `Bearer ${token_}` },
     });
-    localStorage.setItem('user', JSON.stringify(response2.data));
-    setUser(response2.data);
+    setUser(response.data);
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('token');
     setToken('');
-    localStorage.removeItem('user');
-    setUser({});
+    setUser(null);
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, token, signIn, signOut }}>
+    <UserContext.Provider value={{ user, token, signIn, signOut, getUser }}>
       {children}
     </UserContext.Provider>
   );
