@@ -12,7 +12,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Content, Background } from './styles';
+import { Container, Content, ContentBody, Background } from './styles';
 
 import logo from '../../assets/logo.svg';
 
@@ -46,29 +46,31 @@ const SignUp: React.FC = () => {
     <Container>
       <Background />
       <Content>
-        <img src={logo} alt="logo" />
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Faça seu cadastro</h1>
-          <Input name="fullName" icon={FiUser} placeholder="Nome" />
-          <Input name="email" icon={FiMail} placeholder="Email" />
-          <Input
-            name="password"
-            icon={FiLock}
-            type="password"
-            placeholder="Senha"
-          />
-          <Input
-            name="confirmPassword"
-            icon={FiLock}
-            type="password"
-            placeholder="Confirmar senha"
-          />
-          <Button type="submit">Cadastrar</Button>
-        </Form>
-        <Link to="/">
-          <FiArrowLeft />
-          <span>Voltar para logon</span>
-        </Link>
+        <ContentBody>
+          <img src={logo} alt="logo" />
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <h1>Faça seu cadastro</h1>
+            <Input name="fullName" icon={FiUser} placeholder="Nome" />
+            <Input name="email" icon={FiMail} placeholder="Email" />
+            <Input
+              name="password"
+              icon={FiLock}
+              type="password"
+              placeholder="Senha"
+            />
+            <Input
+              name="confirmPassword"
+              icon={FiLock}
+              type="password"
+              placeholder="Confirmar senha"
+            />
+            <Button type="submit">Cadastrar</Button>
+          </Form>
+          <Link to="/">
+            <FiArrowLeft />
+            <span>Voltar para logon</span>
+          </Link>
+        </ContentBody>
       </Content>
     </Container>
   );
