@@ -61,7 +61,7 @@ export const ContentBody = styled.div`
   }
 
   > a {
-    color: #f4ede8;
+    color: #ff9000;
     margin-top: 24px;
     text-decoration: none;
     transition: color 0.2s;
@@ -70,7 +70,7 @@ export const ContentBody = styled.div`
     align-items: center;
 
     &:hover {
-      color: ${shade(0.2, '#f4ede8')};
+      color: ${shade(0.2, '#ff9000')};
     }
 
     svg {
