@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { FiArrowLeft, FiUser, FiMail, FiLock } from 'react-icons/fi';
 
@@ -9,6 +9,10 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 
+import api from '../../services/api';
+
+import { useToast } from '../../context/ToastContext';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -16,31 +20,58 @@ import { Container, Content, ContentBody, Background } from './styles';
 
 import logo from '../../assets/logo.svg';
 
+interface SignUpFormData {
+  email: string;
+  password: string;
+}
+
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data) => {
-    try {
-      // eslint-disable-next-line no-unused-expressions
-      formRef.current?.setErrors({});
-      const schema = Yup.object().shape({
-        fullName: Yup.string().required('Nome obrigatório'),
-        email: Yup.string()
-          .required('Email obrigatório')
-          .email('Email inválido'),
-        password: Yup.string().min(8, 'Mínimo de 8 dígitos'),
-        confirmPassword: Yup.string().oneOf(
-          [Yup.ref('password')],
-          'Confirmação incorreta',
-        ),
-      });
-      await schema.validate(data, { abortEarly: false });
-    } catch (err) {
-      const errors = getValidationErrors(err);
-      // eslint-disable-next-line no-unused-expressions
-      formRef.current?.setErrors(errors);
-    }
-  }, []);
+  const { addToast } = useToast();
+  const history = useHistory();
+
+  const handleSubmit = useCallback(
+    async (data: SignUpFormData) => {
+      try {
+        formRef.current?.setErrors({}); // eslint-disable-line no-unused-expressions
+        const schema = Yup.object().shape({
+          fullName: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
+            .required('Email obrigatório')
+            .email('Email inválido'),
+          password: Yup.string().min(8, 'Mínimo de 8 dígitos'),
+          confirmPassword: Yup.string().oneOf(
+            [Yup.ref('password')],
+            'Confirmação incorreta',
+          ),
+        });
+        await schema.validate(data, { abortEarly: false });
+
+        await api.post('users', data);
+
+        addToast({
+          type: 'success',
+          title: 'Usuário criado',
+          description: 'Utilize suas credenciais para acessar a aplicação.',
+        });
+
+        history.push('/signin');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors); // eslint-disable-line no-unused-expressions
+        } else {
+          addToast({
+            type: 'error',
+            title: 'Erro na requisição',
+            description: 'Não foi possível criar o seu usuário nesse momento.',
+          });
+        }
+      }
+    },
+    [addToast, history],
+  );
 
   return (
     <Container>
