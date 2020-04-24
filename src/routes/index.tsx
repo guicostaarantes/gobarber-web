@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { ProtectedRoute, OnlyPublicRoute } from './Route';
 
@@ -8,6 +8,7 @@ import { useUser } from '../context/UserContext';
 import { useToast } from '../context/ToastContext';
 
 import Dashboard from '../pages/Dashboard';
+import NotFound from '../pages/NotFound';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
@@ -34,8 +35,9 @@ const Router: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <OnlyPublicRoute exact path="/signup" component={SignUp} />
-        <OnlyPublicRoute path="/signin" component={SignIn} />
-        <ProtectedRoute path="/" component={Dashboard} />
+        <OnlyPublicRoute exact path="/signin" component={SignIn} />
+        <ProtectedRoute exact path="/" component={Dashboard} />
+        <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
   );
