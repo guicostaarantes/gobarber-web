@@ -41,10 +41,9 @@ const SignUp: React.FC = () => {
             .required('Email obrigatório')
             .email('Email inválido'),
           password: Yup.string().min(8, 'Mínimo de 8 dígitos'),
-          confirmPassword: Yup.string().oneOf(
-            [Yup.ref('password')],
-            'Confirmação incorreta',
-          ),
+          confirmPassword: Yup.string()
+            .required('Senha obrigatória')
+            .oneOf([Yup.ref('password')], 'Confirmação incorreta'),
         });
         await schema.validate(data, { abortEarly: false });
 
