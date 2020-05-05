@@ -28,13 +28,7 @@ export const UserProvider: React.FC = ({ children }) => {
     return lsToken || '';
   });
 
-  const [user, setUser] = useState<UserData | null>(() => {
-    const lsUser = localStorage.getItem('user');
-    if (lsUser) {
-      return JSON.parse(lsUser);
-    }
-    return null;
-  });
+  const [user, setUser] = useState<UserData | null>(null);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', { email, password });
