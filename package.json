@@ -8,6 +8,7 @@
     "axios": "^0.19.2",
     "env-cmd": "^10.1.0",
     "history": "^4.10.1",
+    "jest-styled-components": "^7.0.2",
     "polished": "^3.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -22,7 +23,7 @@
   },
   "scripts": {
     "dev:start": "env-cmd -f development.env react-scripts start",
-    "test": "env-cmd -f test.env react-scripts test",
+    "test": "env-cmd -f test.env react-scripts test --testMatch \"**/__tests__/**/*.[jt]s?(x)\" \"**/spec.[jt]s?(x)\"",
     "staging:build": "env-cmd -f staging.env react-scripts build",
     "production:build": "env-cmd -f production.env react-scripts build"
   },

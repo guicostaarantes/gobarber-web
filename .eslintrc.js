@@ -35,7 +35,13 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['src/__tests__/**', 'src/setupTests.ts'] },
+      {
+        devDependencies: [
+          'src/__tests__/**',
+          'src/**/spec.tsx',
+          'src/setupTests.ts',
+        ],
+      },
     ],
     'import/extensions': [
       'error',
