@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input unit test should render correctly 1`] = `
+.c0 {
+  background: #232129;
+  border-radius: 10px;
+  padding: 16px;
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #666360;
+  border: 2px solid #232129;
+  -webkit-transition: color 0.2s,border 0.2s;
+  transition: color 0.2s,border 0.2s;
+}
+
+.c0 + div {
+  margin-top: 8px;
+}
+
+.c0 input {
+  background: transparent;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  border: 0;
+  color: #f4ede8;
+}
+
+.c0 input::-webkit-input-placeholder {
+  color: #666360;
+}
+
+.c0 input::-moz-placeholder {
+  color: #666360;
+}
+
+.c0 input:-ms-input-placeholder {
+  color: #666360;
+}
+
+.c0 input::placeholder {
+  color: #666360;
+}
+
+.c0 svg + input {
+  margin-left: 16px;
+}
+
+.c0 input + div {
+  margin-left: 16px;
+}
+
+<div>
+  <form>
+    <div
+      class="c0"
+    >
+      <input
+        data-testid="input"
+        name="email"
+        value=""
+      />
+    </div>
+  </form>
+</div>
+`;

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button unit test should render correctly 1`] = `
+.c0 {
+  background: #ff9000;
+  height: 56px;
+  border-radius: 10px;
+  border: 0;
+  padding: 0 16px;
+  color: #312e38;
+  width: 100%;
+  font-weight: 500;
+  margin-top: 16px;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.c0:hover {
+  background: #cc7300;
+}
+
+<div>
+  <button
+    class="c0"
+    data-testid="button"
+    type="button"
+  >
+    Label
+  </button>
+</div>
+`;

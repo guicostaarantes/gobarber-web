@@ -53,6 +53,7 @@ const Input: React.FC<InputProps> = ({ icon: Icon, name, ...otherProps }) => {
     <Container isFocused={isFocused} isFilled={isFilled} isErrored={isErrored}>
       {Icon && <Icon size={20} />}
       <input
+        data-testid="input"
         ref={inputRef}
         defaultValue={defaultValue}
         name={fieldName}
