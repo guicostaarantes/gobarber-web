@@ -11,6 +11,7 @@ import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import ForgotPassword from '../pages/ForgotPassword';
 
 const Router: React.FC = () => {
   const { token, getUser, signOut } = useUser();
@@ -36,6 +37,11 @@ const Router: React.FC = () => {
       <Switch>
         <OnlyPublicRoute exact path="/signup" component={SignUp} />
         <OnlyPublicRoute exact path="/signin" component={SignIn} />
+        <OnlyPublicRoute
+          exact
+          path="/forgot-password"
+          component={ForgotPassword}
+        />
         <ProtectedRoute exact path="/" component={Dashboard} />
         <Route component={NotFound} />
       </Switch>
