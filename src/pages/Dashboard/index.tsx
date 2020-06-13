@@ -2,17 +2,12 @@ import React from 'react';
 
 import { Container } from './styles';
 
-import { useUser } from '../../context/UserContext';
+import Header from '../../components/Header';
 
 const Dashboard: React.FC = () => {
-  const { user, signOut } = useUser();
-
   return (
     <Container>
-      <h1>{user?.fullName}</h1>
-      <button type="button" onClick={() => signOut()}>
-        Sign Out
-      </button>
+      <Header />
     </Container>
   );
 };

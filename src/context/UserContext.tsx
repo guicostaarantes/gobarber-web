@@ -14,7 +14,7 @@ interface UserData {
 
 interface UserContextData {
   token: string;
-  user: UserData | null;
+  user: UserData | undefined;
   signIn(credentials: SignInCredentials): Promise<void>;
   getUser(token: string): Promise<void>;
   signOut(): void;
@@ -28,7 +28,7 @@ export const UserProvider: React.FC = ({ children }) => {
     return lsToken || '';
   });
 
-  const [user, setUser] = useState<UserData | null>(null);
+  const [user, setUser] = useState<UserData | undefined>(undefined);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', { email, password });
@@ -46,7 +46,7 @@ export const UserProvider: React.FC = ({ children }) => {
   const signOut = useCallback(() => {
     localStorage.removeItem('token');
     setToken('');
-    setUser(null);
+    setUser(undefined);
   }, []);
 
   return (
