@@ -25,6 +25,7 @@ const UserContext = createContext<UserContextData>({} as UserContextData);
 export const UserProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<string>(() => {
     const lsToken = localStorage.getItem('token');
+    if (lsToken) api.defaults.headers.authorization = `Bearer ${lsToken}`;
     return lsToken || '';
   });
 
@@ -33,18 +34,18 @@ export const UserProvider: React.FC = ({ children }) => {
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', { email, password });
     localStorage.setItem('token', response.data.token);
+    api.defaults.headers.authorization = `Bearer ${response.data.token}`;
     setToken(response.data.token);
   }, []);
 
-  const getUser = useCallback(async (token_) => {
-    const response = await api.get('users/me', {
-      headers: { Authorization: `Bearer ${token_}` },
-    });
+  const getUser = useCallback(async () => {
+    const response = await api.get('users/me');
     setUser(response.data);
   }, []);
 
   const signOut = useCallback(() => {
     localStorage.removeItem('token');
+    api.defaults.headers.authorization = undefined;
     setToken('');
     setUser(undefined);
   }, []);
