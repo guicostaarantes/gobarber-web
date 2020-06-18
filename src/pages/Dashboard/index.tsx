@@ -30,6 +30,7 @@ interface Appointment {
   endDate: Date;
   __customer__: {
     fullName: string;
+    avatar: string;
   };
   __procedure__: {
     name: string;
@@ -81,36 +82,42 @@ const Dashboard: React.FC = () => {
               <span>Ainda não há agendamentos futuros.</span>
             </NoAppointmentsMessage>
           )}
-          {appointments.map((appointment, index) => (
-            <AppointmentContent
-              key={appointment.id}
-              className={classnames({ 'next-appointment': index === 0 })}
-            >
-              <img src={avatar} alt="avatar" />
-              <AppointmentDescription>
-                <div>{appointment.__customer__.fullName}</div>
-                <div>
-                  <span>{appointment.__procedure__.name}</span>
-                  <span> - </span>
-                  <span>{formatCurrency(appointment.price)}</span>
-                </div>
-              </AppointmentDescription>
-              <AppointmentTime>
-                <div>
-                  <FiCalendar />
-                  <span>{formatDate(new Date(appointment.startDate))}</span>
-                </div>
-                <div>
-                  <FiClock />
-                  <span>
-                    <span>{formatTime(new Date(appointment.startDate))}</span>
-                    <span>-</span>
-                    <span>{formatTime(new Date(appointment.endDate))}</span>
-                  </span>
-                </div>
-              </AppointmentTime>
-            </AppointmentContent>
-          ))}
+          {appointments.map((appointment, index) => {
+            const avatarSrc = appointment.__customer__.avatar
+              ? `${process.env.REACT_APP_STATIC_BASE_URL}/${appointment.__customer__.avatar}`
+              : avatar;
+
+            return (
+              <AppointmentContent
+                key={appointment.id}
+                className={classnames({ 'next-appointment': index === 0 })}
+              >
+                <img src={avatarSrc} alt="avatar" />
+                <AppointmentDescription>
+                  <div>{appointment.__customer__.fullName}</div>
+                  <div>
+                    <span>{appointment.__procedure__.name}</span>
+                    <span> - </span>
+                    <span>{formatCurrency(appointment.price)}</span>
+                  </div>
+                </AppointmentDescription>
+                <AppointmentTime>
+                  <div>
+                    <FiCalendar />
+                    <span>{formatDate(new Date(appointment.startDate))}</span>
+                  </div>
+                  <div>
+                    <FiClock />
+                    <span>
+                      <span>{formatTime(new Date(appointment.startDate))}</span>
+                      <span>-</span>
+                      <span>{formatTime(new Date(appointment.endDate))}</span>
+                    </span>
+                  </div>
+                </AppointmentTime>
+              </AppointmentContent>
+            );
+          })}
         </Schedule>
       </Content>
     </Container>
