@@ -2,7 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import { FiClock, FiCalendar } from 'react-icons/fi';
 
-import { addDays, isToday, isTomorrow, format } from 'date-fns';
+import { addDays, isToday, isTomorrow, format } from 'date-fns'; // eslint-disable-line import/no-duplicates
+
+import ptbr from 'date-fns/locale/pt-BR'; // eslint-disable-line import/no-duplicates
 
 import classnames from 'classnames';
 
@@ -55,7 +57,7 @@ const Dashboard: React.FC = () => {
   const formatDate = useCallback((date: Date): string => {
     if (isToday(date)) return 'Hoje';
     if (isTomorrow(date)) return 'Amanhã';
-    return format(date, 'dd/MM/yyyy');
+    return format(date, 'dd/MM - eee', { locale: ptbr });
   }, []);
 
   const formatTime = useCallback((date: Date): string => {
