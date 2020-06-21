@@ -13,6 +13,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
+import Procedures from '../pages/Procedures';
 
 const Router: React.FC = () => {
   const { token, getUser, signOut } = useUser();
@@ -49,6 +50,7 @@ const Router: React.FC = () => {
           component={ResetPassword}
         />
         <ProtectedRoute exact path="/" component={Dashboard} />
+        <ProtectedRoute exact path="/procedures" component={Procedures} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
