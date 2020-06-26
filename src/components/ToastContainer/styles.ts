@@ -7,6 +7,7 @@ export const Container = styled.div`
   right: 0;
   padding: 30px;
   overflow: hidden;
+  z-index: 99;
 `;
 
 interface ToastProps {

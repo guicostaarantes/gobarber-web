@@ -69,3 +69,44 @@ export const ProcedureButton = styled.button`
     margin-right: 4px;
   }
 `;
+
+export const Modal = styled.div`
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+
+  &.modal-open {
+    display: block;
+  }
+`;
+
+export const ModalContent = styled.div`
+  position: relative;
+  background-color: #312e38;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+  border-radius: 10px;
+`;
+
+export const CloseModalButton = styled.button`
+  background: transparent;
+  border: 0;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #f4ede8;
+  }
+`;
+
+export const CommentText = styled.span`
+  font-size: 12px;
+  color: #dddddd;
+`;
