@@ -16,23 +16,24 @@ import ResetPassword from '../pages/ResetPassword';
 import Procedures from '../pages/Procedures';
 
 const Router: React.FC = () => {
-  const { token, getUser, signOut } = useUser();
+  const { token, getUser, getSupplier, signOut } = useUser();
   const { addToast } = useToast();
 
   const [lastToken, setLastToken] = useState('');
 
   useEffect(() => {
     if (token && token !== lastToken) {
-      getUser(token).catch(() => {
+      getUser().catch(() => {
         signOut();
         addToast({
           title: 'Sessão expirada',
           description: 'Insira suas credenciais para entrar novamente.',
         });
       });
+      getSupplier();
     }
     setLastToken(token);
-  }, [token, lastToken, getUser, signOut, addToast]);
+  }, [token, lastToken, getUser, getSupplier, signOut, addToast]);
 
   return (
     <BrowserRouter>

@@ -42,6 +42,9 @@ import {
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import NotFound from '../NotFound';
+
+import { useUser } from '../../context/UserContext';
 
 interface Procedure {
   id: string;
@@ -61,6 +64,7 @@ const Procedures: React.FC = () => {
   const [editingProcedureId, setEditingProcedureId] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const { supplier } = useUser();
   const { addToast } = useToast();
 
   const formRef = useRef<FormHandles>(null);
@@ -147,6 +151,10 @@ const Procedures: React.FC = () => {
       }).format(price),
     [],
   );
+
+  if (!supplier) {
+    return <NotFound />;
+  }
 
   return (
     <Container>

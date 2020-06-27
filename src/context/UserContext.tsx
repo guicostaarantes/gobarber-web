@@ -12,11 +12,19 @@ interface UserData {
   avatar?: string;
 }
 
+interface SupplierData {
+  name: string;
+  latitude: number;
+  longitude: number;
+}
+
 interface UserContextData {
   token: string;
   user: UserData | undefined;
+  supplier: SupplierData | undefined;
   signIn(credentials: SignInCredentials): Promise<void>;
-  getUser(token: string): Promise<void>;
+  getUser(): Promise<void>;
+  getSupplier(): Promise<void>;
   signOut(): void;
 }
 
@@ -30,6 +38,7 @@ export const UserProvider: React.FC = ({ children }) => {
   });
 
   const [user, setUser] = useState<UserData | undefined>(undefined);
+  const [supplier, setSupplier] = useState<SupplierData | undefined>(undefined);
 
   const signIn = useCallback(async ({ email, password }) => {
     const response = await api.post('sessions', { email, password });
@@ -43,15 +52,23 @@ export const UserProvider: React.FC = ({ children }) => {
     setUser(response.data);
   }, []);
 
+  const getSupplier = useCallback(async () => {
+    const response = await api.get('suppliers/me');
+    setSupplier(response.data);
+  }, []);
+
   const signOut = useCallback(() => {
     localStorage.removeItem('token');
     api.defaults.headers.authorization = undefined;
     setToken('');
     setUser(undefined);
+    setSupplier(undefined);
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, token, signIn, signOut, getUser }}>
+    <UserContext.Provider
+      value={{ user, supplier, token, signIn, signOut, getUser, getSupplier }}
+    >
       {children}
     </UserContext.Provider>
   );
