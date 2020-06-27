@@ -21,8 +21,10 @@ import { Container, Content, ContentBody, Background } from './styles';
 import logo from '../../assets/logo.svg';
 
 interface SignUpFormData {
+  fullName: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 const SignUp: React.FC = () => {
@@ -47,7 +49,9 @@ const SignUp: React.FC = () => {
         });
         await schema.validate(data, { abortEarly: false });
 
-        await api.post('users', data);
+        const newUserData = { ...data };
+        delete newUserData.confirmPassword;
+        await api.post('users', newUserData);
 
         addToast({
           type: 'success',
