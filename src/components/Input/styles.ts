@@ -13,7 +13,7 @@ export const Container = styled.div<ContainerProps>`
   width: 100%;
   display: flex;
   align-items: center;
-
+  margin: 8px;
   color: #666360;
   border: 2px solid #232129;
   transition: color 0.2s, border 0.2s;
@@ -36,10 +36,6 @@ export const Container = styled.div<ContainerProps>`
     css`
       color: #ff9000;
     `}
-
-  & + div {
-    margin-top: 8px;
-  }
 
   input {
     background: transparent;

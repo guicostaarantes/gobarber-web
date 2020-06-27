@@ -106,6 +106,10 @@ export const CloseModalButton = styled.button`
   }
 `;
 
+export const Row = styled.div`
+  display: flex;
+`;
+
 export const CommentText = styled.span`
   font-size: 12px;
   color: #dddddd;

@@ -36,6 +36,7 @@ import {
   Modal,
   ModalContent,
   CloseModalButton,
+  Row,
   CommentText,
 } from './styles';
 
@@ -68,6 +69,15 @@ const Procedures: React.FC = () => {
   const { addToast } = useToast();
 
   const formRef = useRef<FormHandles>(null);
+
+  const getProcedures = useCallback(async () => {
+    const response = await api.get<Procedure[]>(`suppliers/me/procedures`);
+    setProcedures(response.data);
+  }, []);
+
+  useEffect(() => {
+    getProcedures();
+  }, [getProcedures]);
 
   const handleOpenProcedureModal = useCallback(
     (id) => {
@@ -116,12 +126,17 @@ const Procedures: React.FC = () => {
               : 'Procedimento editado.',
         });
         setIsModalOpen(false);
+        getProcedures();
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors); // eslint-disable-line no-unused-expressions
-        }
-        if (err.response?.status) {
+        } else if (err.response?.status === 409) {
+          // eslint-disable-next-line no-unused-expressions
+          formRef.current?.setErrors({
+            name: 'Já existe um procedimento com este nome.',
+          });
+        } else {
           addToast({
             type: 'error',
             title: 'Erro',
@@ -131,17 +146,8 @@ const Procedures: React.FC = () => {
         }
       }
     },
-    [addToast, editingProcedureId],
+    [editingProcedureId, addToast, getProcedures],
   );
-
-  const getProcedures = useCallback(async () => {
-    const response = await api.get<Procedure[]>(`suppliers/me/procedures`);
-    setProcedures(response.data);
-  }, []);
-
-  useEffect(() => {
-    getProcedures();
-  }, [getProcedures]);
 
   const formatCurrency = useCallback(
     (price: number): string =>
@@ -204,21 +210,25 @@ const Procedures: React.FC = () => {
             </CloseModalButton>
           </ProcedureHeader>
           <Form ref={formRef} onSubmit={handleSubmitProcedure}>
-            <Input
-              name="name"
-              icon={FiMessageCircle}
-              placeholder="Nome do procedimento"
-            />
-            <Input
-              name="duration"
-              icon={FiClock}
-              placeholder="Duração (minutos)"
-            />
-            <Input
-              name="price"
-              icon={FiDollarSign}
-              placeholder="Preço (reais)"
-            />
+            <Row>
+              <Input
+                name="name"
+                icon={FiMessageCircle}
+                placeholder="Nome do procedimento"
+              />
+            </Row>
+            <Row>
+              <Input
+                name="duration"
+                icon={FiClock}
+                placeholder="Duração (minutos)"
+              />
+              <Input
+                name="price"
+                icon={FiDollarSign}
+                placeholder="Preço (reais)"
+              />
+            </Row>
             {editingProcedureId !== '' && (
               <CommentText>
                 Obs: agendamentos que foram feitos antes da edição permanecem
