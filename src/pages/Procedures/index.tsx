@@ -63,7 +63,9 @@ interface AddOrEditModalFormData {
 const Procedures: React.FC = () => {
   const [procedures, setProcedures] = useState<Procedure[]>([]);
   const [editingProcedureId, setEditingProcedureId] = useState('');
+  const [deletingProcedureId, setDeletingProcedureId] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { supplier } = useUser();
   const { addToast } = useToast();
@@ -95,6 +97,7 @@ const Procedures: React.FC = () => {
   );
 
   const handleCloseProcedureModal = useCallback(() => {
+    formRef.current?.setErrors({}); // eslint-disable-line no-unused-expressions
     setIsModalOpen(false);
   }, []);
 
@@ -104,12 +107,8 @@ const Procedures: React.FC = () => {
         formRef.current?.setErrors({}); // eslint-disable-line no-unused-expressions
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
-          duration: Yup.string()
-            .required('Duração obrigatória')
-            .matches(/^[0-9,]+$/, 'Duração deve ser um número'),
-          price: Yup.string()
-            .required('Preço obrigatório')
-            .matches(/^[0-9,]+$/, 'Preço deve ser um número'),
+          duration: Yup.string().required('Duração obrigatória'),
+          price: Yup.string().required('Preço obrigatório'),
         });
         await schema.validate(data, { abortEarly: false });
         if (editingProcedureId === '') {
@@ -148,6 +147,26 @@ const Procedures: React.FC = () => {
     },
     [editingProcedureId, addToast, getProcedures],
   );
+
+  const handleDurationFieldChange = useCallback((event) => {
+    const value = event.target.value as string;
+    const formattedValue = value.match(/[0-9]+/)?.[0] || '';
+    // eslint-disable-next-line no-unused-expressions
+    formRef?.current?.setData({
+      duration: formattedValue,
+    });
+  }, []);
+
+  const handlePriceFieldChange = useCallback((event) => {
+    const value = event.target.value as string;
+    const sanitizedValue = value.replace(',', '.');
+    const formattedValue =
+      sanitizedValue.match(/[0-9]+\.?[0-9]{0,2}/)?.[0] || '';
+    // eslint-disable-next-line no-unused-expressions
+    formRef?.current?.setData({
+      price: formattedValue,
+    });
+  }, []);
 
   const formatCurrency = useCallback(
     (price: number): string =>
@@ -222,11 +241,13 @@ const Procedures: React.FC = () => {
                 name="duration"
                 icon={FiClock}
                 placeholder="Duração (minutos)"
+                onChange={handleDurationFieldChange}
               />
               <Input
                 name="price"
                 icon={FiDollarSign}
                 placeholder="Preço (reais)"
+                onChange={handlePriceFieldChange}
               />
             </Row>
             {editingProcedureId !== '' && (
