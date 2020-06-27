@@ -11,12 +11,13 @@ export const Content = styled.div`
 export const ProcedureHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
   align-items: baseline;
 `;
 
 export const ProcedureTitle = styled.div`
   font-size: 36px;
+  margin: 8px;
 `;
 
 export const AddProcedureButton = styled.button`
@@ -87,6 +88,7 @@ export const Modal = styled.div`
 `;
 
 export const ModalContent = styled.div`
+  max-width: 840px;
   position: relative;
   background-color: #312e38;
   margin: 15% auto;
@@ -110,7 +112,8 @@ export const Row = styled.div`
   display: flex;
 `;
 
-export const CommentText = styled.span`
-  font-size: 12px;
+export const CommentText = styled.div`
+  font-size: 16px;
   color: #dddddd;
+  margin: 8px;
 `;

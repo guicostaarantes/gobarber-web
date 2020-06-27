@@ -101,6 +101,34 @@ const Procedures: React.FC = () => {
     setIsModalOpen(false);
   }, []);
 
+  const handleOpenDeleteProcedureModal = useCallback((id) => {
+    setDeletingProcedureId(id);
+    setIsDeleteModalOpen(true);
+  }, []);
+
+  const handleCloseDeleteProcedureModal = useCallback(() => {
+    setIsDeleteModalOpen(false);
+  }, []);
+
+  const handleDeleteProcedure = useCallback(async () => {
+    try {
+      await api.delete(`procedures/${deletingProcedureId}`);
+      addToast({
+        type: 'success',
+        title: 'Sucesso',
+        description: 'Procedimento excluído.',
+      });
+      setIsDeleteModalOpen(false);
+      getProcedures();
+    } catch (err) {
+      addToast({
+        type: 'error',
+        title: 'Erro',
+        description: 'Ocorreu um erro ao enviar sua requisição ao servidor.',
+      });
+    }
+  }, [getProcedures, addToast, deletingProcedureId]);
+
   const handleSubmitProcedure = useCallback(
     async (data: AddOrEditModalFormData) => {
       try {
@@ -209,7 +237,10 @@ const Procedures: React.FC = () => {
               >
                 <FiEdit />
               </ProcedureButton>
-              <ProcedureButton type="button">
+              <ProcedureButton
+                type="button"
+                onClick={() => handleOpenDeleteProcedureModal(procedure.id)}
+              >
                 <FiTrash />
               </ProcedureButton>
             </ProcedureActions>
@@ -259,6 +290,34 @@ const Procedures: React.FC = () => {
             )}
             <Button type="submit">Finalizar</Button>
           </Form>
+        </ModalContent>
+      </Modal>
+      <Modal className={classNames({ 'modal-open': isDeleteModalOpen })}>
+        <ModalContent>
+          <ProcedureHeader>
+            <ProcedureTitle>Excluir procedimento</ProcedureTitle>
+            <CloseModalButton onClick={handleCloseDeleteProcedureModal}>
+              <FiXCircle />
+            </CloseModalButton>
+          </ProcedureHeader>
+          <CommentText>
+            Ao excluir um procedimento, usuários não poderão mais ver e agendar
+            este procedimento.
+          </CommentText>
+          <CommentText>
+            Usuários que já agendaram esse procedimento continuarão com esse
+            agendamento. Portanto, é necessário cumprir com esse agendamento, ou
+            então desmarcá-los manualmente.
+          </CommentText>
+          <CommentText>Confirma a exclusão do procedimento?</CommentText>
+          <Row>
+            <Button type="button" onClick={handleDeleteProcedure}>
+              Excluir procedimento
+            </Button>
+            <Button type="button" onClick={handleCloseDeleteProcedureModal}>
+              Não excluir
+            </Button>
+          </Row>
         </ModalContent>
       </Modal>
     </Container>
