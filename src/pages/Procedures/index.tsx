@@ -288,7 +288,9 @@ const Procedures: React.FC = () => {
                 agendamento.
               </CommentText>
             )}
-            <Button type="submit">Finalizar</Button>
+            <Row>
+              <Button type="submit">Finalizar</Button>
+            </Row>
           </Form>
         </ModalContent>
       </Modal>
