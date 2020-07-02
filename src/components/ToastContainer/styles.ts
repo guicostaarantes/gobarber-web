@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { animated } from 'react-spring';
 
+import { CONSTANTS } from '../../styles/constants';
+
 export const Container = styled.div`
   position: absolute;
   top: 0;
@@ -16,16 +18,16 @@ interface ToastProps {
 
 const toastTypes = {
   default: css`
-    background: #ebf8ff;
-    color: #3172b7;
+    background: ${CONSTANTS.infoLightColor};
+    color: ${CONSTANTS.infoColor};
   `,
   success: css`
-    background: #e6ffe6;
-    color: #2e656a;
+    background: ${CONSTANTS.successLightColor};
+    color: ${CONSTANTS.successColor};
   `,
   error: css`
-    background: #fddede;
-    color: #c53030;
+    background: ${CONSTANTS.errorLightColor};
+    color: ${CONSTANTS.errorColor};
   `,
 };
 
@@ -35,7 +37,7 @@ export const Toast = styled(animated.div)<ToastProps>`
   padding: 16px 30px 16px 16px;
   margin-bottom: 12px;
   border-radius: 10px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 8px ${CONSTANTS.transparentGrayLightColor};
   display: flex;
 
   ${(props) => toastTypes[props.type || 'default']}

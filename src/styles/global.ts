@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { CONSTANTS } from './constants';
+
 export default createGlobalStyle`
   * {
     margin: 0;
@@ -9,8 +11,8 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #312E38;
-    color: #f4ede8;
+    background: ${CONSTANTS.grayColor3};
+    color: ${CONSTANTS.grayColor7};
   }
 
   body, input, button {
@@ -29,7 +31,7 @@ export default createGlobalStyle`
 /* Hack to disable Chrome's autofill styling */
   @keyframes autofill {
     0%,100% {
-      color: #f4ede8;
+      color: ${CONSTANTS.grayColor7};
       background: transparent;
     }
   }

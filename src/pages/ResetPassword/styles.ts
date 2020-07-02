@@ -1,8 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 
-import { shade } from 'polished';
-
 import backgroundImg from '../../assets/sign-up-background.png';
+
+import { CONSTANTS } from '../../styles/constants';
 
 export const Container = styled.div`
   height: 100vh;
@@ -48,20 +48,20 @@ export const ContentBody = styled.div`
     }
 
     a {
-      color: #f4ede8;
+      color: ${CONSTANTS.grayColor8};
       display: block;
       margin-top: 24px;
       text-decoration: none;
       transition: color 0.2s;
 
       &:hover {
-        color: ${shade(0.2, '#f4ede8')};
+        color: '${CONSTANTS.grayColor7}';
       }
     }
   }
 
   > a {
-    color: #ff9000;
+    color: ${CONSTANTS.primaryColor};
     margin-top: 24px;
     text-decoration: none;
     transition: color 0.2s;
@@ -70,7 +70,7 @@ export const ContentBody = styled.div`
     align-items: center;
 
     &:hover {
-      color: ${shade(0.2, '#ff9000')};
+      color: ${CONSTANTS.primaryDarkColor};
     }
 
     svg {

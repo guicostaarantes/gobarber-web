@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
+import { CONSTANTS } from '../../styles/constants';
+
 export const Container = styled.header`
   padding: 32px 0;
-  background: #28262e;
+  background: ${CONSTANTS.grayColor2};
 `;
 
 export const Content = styled.div`
@@ -22,7 +24,7 @@ export const Content = styled.div`
     border: 0;
 
     svg {
-      color: #999591;
+      color: ${CONSTANTS.grayColor6};
       width: 20px;
       height: 20px;
     }
@@ -43,6 +45,6 @@ export const Profile = styled.div`
   strong {
     margin-left: 16px;
     line-height: 24px;
-    color: #ff9000;
+    color: ${CONSTANTS.primaryColor};
   }
 `;

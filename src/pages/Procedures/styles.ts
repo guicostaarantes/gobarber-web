@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { CONSTANTS } from '../../styles/constants';
+
 export const Container = styled.div``;
 
 export const Content = styled.div`
@@ -21,16 +23,16 @@ export const ProcedureTitle = styled.div`
 `;
 
 export const AddProcedureButton = styled.button`
-  background: #3e3b47;
+  background: ${CONSTANTS.grayColor4};
   border: 0;
-  color: #999591;
+  color: ${CONSTANTS.grayColor6};
   display: flex;
   align-items: center;
   padding: 6px 12px;
   border-radius: 20px;
 
   svg {
-    color: #ff9000;
+    color: ${CONSTANTS.primaryColor};
     width: 24px;
     height: 24px;
     margin-right: 4px;
@@ -38,7 +40,7 @@ export const AddProcedureButton = styled.button`
 `;
 
 export const ProcedureContent = styled.div`
-  background: #3e3b47;
+  background: ${CONSTANTS.grayColor4};
   padding: 20px;
   border-radius: 10px;
   margin-top: 24px;
@@ -64,7 +66,7 @@ export const ProcedureButton = styled.button`
   border: 0;
 
   svg {
-    color: #ff9000;
+    color: ${CONSTANTS.primaryColor};
     width: 24px;
     height: 24px;
     margin-right: 4px;
@@ -80,7 +82,7 @@ export const Modal = styled.div`
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: ${CONSTANTS.transparentGrayDarkColor};
 
   &.modal-open {
     display: block;
@@ -90,7 +92,7 @@ export const Modal = styled.div`
 export const ModalContent = styled.div`
   max-width: 840px;
   position: relative;
-  background-color: #312e38;
+  background-color: ${CONSTANTS.grayColor3};
   margin: 15% auto;
   padding: 20px;
   width: 80%;
@@ -104,7 +106,7 @@ export const CloseModalButton = styled.button`
   svg {
     width: 20px;
     height: 20px;
-    color: #f4ede8;
+    color: ${CONSTANTS.grayColor8};
   }
 `;
 
@@ -114,6 +116,6 @@ export const Row = styled.div`
 
 export const CommentText = styled.div`
   font-size: 16px;
-  color: #dddddd;
+  color: ${CONSTANTS.grayColor7};
   margin: 8px;
 `;

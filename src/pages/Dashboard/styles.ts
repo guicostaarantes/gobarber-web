@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { CONSTANTS } from '../../styles/constants';
+
 export const Container = styled.div``;
 
 export const Content = styled.div`
@@ -19,12 +21,12 @@ export const ScheduleTitle = styled.div`
 `;
 
 export const NoAppointmentsMessage = styled.div`
-  color: #999591;
+  color: ${CONSTANTS.grayColor6};
   text-align: center;
 `;
 
 export const AppointmentContent = styled.div`
-  background: #3e3b47;
+  background: ${CONSTANTS.grayColor4};
   display: flex;
   align-items: center;
   padding: 10px 24px;
@@ -33,7 +35,7 @@ export const AppointmentContent = styled.div`
 
   &.next-appointment {
     padding: 16px 24px;
-    border: #ff9000 solid 1px;
+    border: ${CONSTANTS.primaryColor} solid 1px;
     border-radius: 10px;
 
     img {
@@ -53,7 +55,7 @@ export const AppointmentContent = styled.div`
 
 export const AppointmentDescription = styled.div`
   margin-left: 24px;
-  color: #ffffff;
+  color: ${CONSTANTS.grayColor9};
 
   > div {
     font-weight: 500;
@@ -61,7 +63,7 @@ export const AppointmentDescription = styled.div`
 
   div + div {
     font-weight: 400;
-    color: #999591;
+    color: ${CONSTANTS.grayColor6};
     font-size: 14px;
   }
 `;

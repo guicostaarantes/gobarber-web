@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { CONSTANTS } from '../../styles/constants';
+
 interface ContainerProps {
   isFocused: boolean;
   isFilled: boolean;
@@ -7,15 +9,15 @@ interface ContainerProps {
 }
 
 export const Container = styled.div<ContainerProps>`
-  background: #232129;
+  background: ${CONSTANTS.grayColor1};
   border-radius: 10px;
   padding: 16px;
   width: 100%;
   display: flex;
   align-items: center;
   margin: 8px;
-  color: #666360;
-  border: 2px solid #232129;
+  color: ${CONSTANTS.grayColor5};
+  border: 2px solid ${CONSTANTS.grayColor1};
   transition: color 0.2s, border 0.2s;
 
   ${(props) =>
@@ -27,23 +29,23 @@ export const Container = styled.div<ContainerProps>`
   ${(props) =>
     props.isFocused &&
     css`
-      color: #ff9000;
-      border: 2px solid #ff9000;
+      color: ${CONSTANTS.primaryColor};
+      border: 2px solid ${CONSTANTS.primaryColor};
     `}
 
   ${(props) =>
     props.isFilled &&
     css`
-      color: #ff9000;
+      color: ${CONSTANTS.primaryColor};
     `}
 
   input {
     background: transparent;
     flex: 1;
     border: 0;
-    color: #f4ede8;
+    color: ${CONSTANTS.grayColor8};
     &::placeholder {
-      color: #666360;
+      color: ${CONSTANTS.grayColor5};
     }
   }
 
