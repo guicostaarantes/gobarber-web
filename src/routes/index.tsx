@@ -14,6 +14,7 @@ import SignUp from '../pages/SignUp';
 import ForgotPassword from '../pages/ForgotPassword';
 import ResetPassword from '../pages/ResetPassword';
 import Procedures from '../pages/Procedures';
+import Vacancies from '../pages/Vacancies';
 
 const Router: React.FC = () => {
   const { token, getUser, getSupplier, signOut } = useUser();
@@ -52,6 +53,7 @@ const Router: React.FC = () => {
         />
         <ProtectedRoute exact path="/" component={Dashboard} />
         <ProtectedRoute exact path="/procedures" component={Procedures} />
+        <ProtectedRoute exact path="/vacancies" component={Vacancies} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

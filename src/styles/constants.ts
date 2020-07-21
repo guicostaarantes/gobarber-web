@@ -2,6 +2,7 @@ export const CONSTANTS = {
   // colors
   primaryColor: '#ff9000',
   primaryDarkColor: '#cc7300',
+  primaryDarkerColor: '#a95f00',
   infoLightColor: '#ebf8ff',
   infoColor: '#3172b7',
   successLightColor: '#e6ffe6',
