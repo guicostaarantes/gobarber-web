@@ -20,7 +20,7 @@ describe('Checkbox unit test', () => {
     expect(container).toMatchSnapshot();
   });
 
-  it('should change when typing', async () => {
+  it('should change when clicking the switch', async () => {
     const fn = jest.fn();
     const formRef = React.createRef<FormHandles>();
     const { getByTestId } = render(
@@ -33,9 +33,29 @@ describe('Checkbox unit test', () => {
       </Form>,
     );
     const input = getByTestId('checkbox');
-    fireEvent.change(input, { target: { checked: true } });
+    fireEvent.click(input);
     expect(formRef.current?.getData()).toEqual({ newsletter: true });
-    fireEvent.change(input, { target: { checked: false } });
+    fireEvent.click(input);
     expect(formRef.current?.getData()).toEqual({ newsletter: false });
+  });
+
+  it('should change when clicking the label', async () => {
+    const fn = jest.fn();
+    const formRef = React.createRef<FormHandles>();
+    const { getByTestId } = render(
+      <Form ref={formRef} onSubmit={fn}>
+        <Checkbox
+          name="newsletter"
+          label="I would like to receive news"
+          uncheckedLabel="I would NOT like to receive news"
+          defaultChecked
+        />
+      </Form>,
+    );
+    const label = getByTestId('checkbox-label');
+    fireEvent.click(label);
+    expect(formRef.current?.getData()).toEqual({ newsletter: false });
+    fireEvent.click(label);
+    expect(formRef.current?.getData()).toEqual({ newsletter: true });
   });
 });

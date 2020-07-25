@@ -45,7 +45,7 @@ const Checkbox: React.FC<InputProps> = ({
         data-testid="checkbox"
         {...otherProps}
       />
-      <Label htmlFor={fieldName}>
+      <Label htmlFor={fieldName} data-testid="checkbox-label">
         <span className="active">{label}</span>
         <span className="inactive">{uncheckedLabel || label}</span>
       </Label>

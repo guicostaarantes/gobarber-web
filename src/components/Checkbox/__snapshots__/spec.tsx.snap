@@ -110,6 +110,7 @@ exports[`Checkbox unit test should render correctly 1`] = `
       />
       <label
         class=""
+        data-testid="checkbox-label"
         for="newsletter"
       >
         <span
