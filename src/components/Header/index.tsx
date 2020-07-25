@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { FiPower } from 'react-icons/fi';
 
-import { Container, Content, Profile } from './styles';
+import * as Styled from './styles';
 
 import { useUser } from '../../context/UserContext';
 
@@ -20,18 +20,25 @@ const Header: React.FC = () => {
   }, [user]);
 
   return (
-    <Container>
-      <Content>
-        <img src={logo} alt="logo" />
-        <Profile>
-          <img src={avatarSrc} alt="avatar" />
-          <strong>{user && user.fullName}</strong>
-        </Profile>
-        <button type="button" onClick={signOut}>
+    <Styled.Container>
+      <Styled.Content>
+        <Styled.Logo src={logo} alt="logo" />
+        <Styled.Middle>
+          <Styled.Profile>
+            <Styled.UserPicture src={avatarSrc} alt="avatar" />
+            <Styled.UserName>{user && user.fullName}</Styled.UserName>
+          </Styled.Profile>
+          <Styled.Menu>
+            <Styled.MenuItem to="/">Agendamentos</Styled.MenuItem>
+            <Styled.MenuItem to="/vacancies">Disponibilidade</Styled.MenuItem>
+            <Styled.MenuItem to="/procedures">Procedimentos</Styled.MenuItem>
+          </Styled.Menu>
+        </Styled.Middle>
+        <Styled.SignOutButton type="button" onClick={signOut}>
           <FiPower />
-        </button>
-      </Content>
-    </Container>
+        </Styled.SignOutButton>
+      </Styled.Content>
+    </Styled.Container>
   );
 };
 

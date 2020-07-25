@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
+import { Link } from 'react-router-dom';
+
 import { CONSTANTS } from '../../styles/constants';
 
 export const Container = styled.header`
-  padding: 32px 0;
+  padding: 20px 0;
   background: ${CONSTANTS.grayColor2};
 `;
 
@@ -13,38 +15,59 @@ export const Content = styled.div`
   padding: 0 20px;
   display: flex;
   align-items: center;
+`;
 
-  > img {
-    height: 80px;
-  }
+export const Logo = styled.img`
+  height: 80px;
+`;
 
-  button {
-    margin-left: auto;
-    background: transparent;
-    border: 0;
-
-    svg {
-      color: ${CONSTANTS.grayColor6};
-      width: 20px;
-      height: 20px;
-    }
-  }
+export const Middle = styled.div`
+  margin-left: 80px;
 `;
 
 export const Profile = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 80px;
-
-  img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-  }
 
   strong {
-    margin-left: 16px;
-    line-height: 24px;
-    color: ${CONSTANTS.primaryColor};
+  }
+`;
+
+export const UserPicture = styled.img`
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+`;
+
+export const UserName = styled.strong`
+  margin-left: 16px;
+  line-height: 24px;
+  color: ${CONSTANTS.primaryColor};
+`;
+
+export const Menu = styled.div`
+  display: flex;
+`;
+
+export const MenuItem = styled(Link)`
+  color: ${CONSTANTS.primaryColor};
+  padding: 10px;
+  text-decoration: none;
+  :not(:first-child) {
+    ::before {
+      content: 'a';
+    }
+  }
+`;
+
+export const SignOutButton = styled.button`
+  margin-left: auto;
+  background: transparent;
+  border: 0;
+
+  svg {
+    color: ${CONSTANTS.grayColor7};
+    width: 20px;
+    height: 20px;
   }
 `;
